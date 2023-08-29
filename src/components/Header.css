@@ -10,10 +10,21 @@
   border-bottom: 0.5rem solid black;
 }
 
-.header a {
+.header h2 {
+  font-size: 1rem;
+  color: black;
+  margin: auto;
+}
+
+.header h2 a {
+  color: black;
+  text-decoration: none;
+}
+
+.header ul a {
   color: white;
   text-decoration: none;
-  font-size: large;
+  font-size: 1rem;
 }
 
 .header ul {
