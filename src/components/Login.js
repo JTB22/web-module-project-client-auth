@@ -27,6 +27,7 @@ export default function Login() {
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.payload);
+        setCredentials(initialState);
         navigate("/friendList");
       })
       .catch((err) => {
@@ -44,12 +45,14 @@ export default function Login() {
             name="username"
             type="text"
             onChange={(e) => handleChanges(e)}
+            value={credentials.username}
           />
           <label htmlFor="password">Password</label>
           <input
             name="password"
             type="password"
             onChange={(e) => handleChanges(e)}
+            value={credentials.password}
           />
           <button type="submit" onClick={(e) => login(e)}>
             Login
