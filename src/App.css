@@ -36,3 +36,58 @@
     transform: rotate(360deg);
   }
 }
+
+.login {
+  font-family: "Alfa Slab One", cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.login h2 {
+  font-size: 4rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.formContainer label {
+  font-size: 2rem;
+}
+
+.formContainer input {
+  font-size: 2rem;
+  background-color: black;
+  height: 4rem;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.formContainer button {
+  width: 92.5%;
+  font-size: 2rem;
+  background-color: black;
+  color: white;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
