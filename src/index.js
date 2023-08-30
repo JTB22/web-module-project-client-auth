@@ -33,6 +33,7 @@ root.render(
         <Route path="/login" element={<App />} />
         <Route path="/friendList" element={<FriendList />} />
         <Route path="/addFriend" element={<AddFriend />} />
+        <Route path="/logout" element={<App logOut={true} />} />
         <Route path="*" element={<WebError />} />
       </Routes>
     </Router>

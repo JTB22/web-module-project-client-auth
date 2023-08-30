@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import axios from "axios";
-import { axiosWithAuth } from "../utils/axiosAuth";
 import { connect } from "react-redux";
 import { getFriends } from "../actions/FriendsActions";
 import { useNavigate } from "react-router-dom";
@@ -11,29 +9,25 @@ const FriendList = (props) => {
   useEffect(() => {
     if (!token) {
       navigate("/");
-    } else if (props.friends.length === 0) {
-      props.getFriends();
     }
+    props.getFriends();
   }, []);
-  if (props.error) {
-    return <h2>Error: {props.error}</h2>;
-  }
-  if (props.isLoading) {
-    return <h2>Loading...</h2>;
-  }
+
   return (
     <div className="friendList">
       <h2>Friends List</h2>
       <div>
-        {props.friends.map((friend) => {
-          return (
-            <div className="friend" key={friend.id}>
-              <h3>{friend.name}</h3>
-              <p>{friend.age}</p>
-              <p>{friend.email}</p>
-            </div>
-          );
-        })}
+        {props.isLoading && <h2>Loading...</h2>}
+        {props.friends &&
+          props.friends.map((friend) => {
+            return (
+              <div className="friend" key={friend.id}>
+                <h3>{friend.name}</h3>
+                <p>{friend.age}</p>
+                <p>{friend.email}</p>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

@@ -5,19 +5,36 @@ import {
   ADD_FRIEND,
   ADD_FRIEND_SUCCESS,
   ADD_FRIEND_FAILURE,
+  HANDLE_CHANGE,
   DELETE_FRIEND,
   DELETE_FRIEND_SUCCESS,
   DELETE_FRIEND_FAILURE,
+  CLEAR_STATE,
 } from "../actions/FriendsActions";
 
 const initialState = {
   friends: [],
+  newFriend: {
+    name: "",
+    age: "",
+    email: "",
+  },
   isLoading: false,
   error: "",
 };
 
 export const friendsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case HANDLE_CHANGE:
+      return {
+        ...state,
+        newFriend: {
+          ...state.newFriend,
+          [action.payload.target.name]: action.payload.target.value,
+        },
+      };
+    case CLEAR_STATE:
+      return { ...state, initialState };
     case GET_FRIENDS:
       return {
         ...state,

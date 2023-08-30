@@ -5,7 +5,14 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT = "LOGOUT";
 
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+export const navLogin = () => {
+  const navigate = useNavigate();
+  if (localStorage.getItem("token") !== null) {
+    navigate("/friendList");
+  }
+};
 
 export const handleChange = (e) => {
   console.log(e.target.name, e.target.value);
@@ -28,5 +35,6 @@ export const login = (credentials) => (dispatch) => {
 };
 
 export const logout = () => {
+  localStorage.removeItem("token");
   return { type: LOGOUT };
 };

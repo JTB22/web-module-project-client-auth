@@ -2,12 +2,17 @@ import React, { useEffect } from "react";
 import Login from "./components/login";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logout } from "./actions/LoginActions";
+import { clearState } from "./actions/FriendsActions";
 
 function App(props) {
   const navigate = useNavigate();
   useEffect(() => {
-    if (props.loggedIn || localStorage.getItem("token")) {
-      navigate("/friendList");
+    console.log(props);
+    if (props.logOut) {
+      props.logout();
+      props.clearState();
+      navigate("/");
     }
   }, [props.loggedIn]);
 
@@ -24,4 +29,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, { logout, clearState })(App);

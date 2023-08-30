@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { handleChange, login } from "../actions/LoginActions";
 import { connect } from "react-redux";
+import { navLogin } from "../actions/LoginActions";
 
 function Login(props) {
   //   const handleChanges = (e) => {
@@ -37,6 +37,9 @@ function Login(props) {
     props.login(credentials);
   };
 
+  useEffect(() => {
+    props.navLogin();
+  }, []);
   return (
     <div className="login">
       <h2>Login</h2>
@@ -76,4 +79,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { handleChange, login })(Login);
+export default connect(mapStateToProps, { handleChange, login, navLogin })(
+  Login
+);

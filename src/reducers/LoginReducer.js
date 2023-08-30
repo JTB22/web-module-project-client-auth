@@ -44,8 +44,7 @@ export const loginReducer = (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        username: "",
-        password: "",
+        initialState,
       };
     default:
       return state;
