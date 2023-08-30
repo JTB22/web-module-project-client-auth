@@ -1,38 +1,40 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { handleChange, login } from "../actions/LoginActions";
+import { connect } from "react-redux";
 
-const initialState = {
-  username: "",
-  password: "",
-};
+function Login(props) {
+  //   const handleChanges = (e) => {
+  //     setCredentials({
+  //       ...credentials,
+  //       [e.target.name]: e.target.value,
+  //     });
+  //   };
 
-export default function Login() {
-  const [credentials, setCredentials] = useState(initialState);
-  const navigate = useNavigate();
+  //   const login = (e) => {
+  //     e.preventDefault();
+  //     console.log(credentials);
+  //     axios
+  //       .post("http://localhost:9000/api/login", credentials)
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         localStorage.setItem("token", res.data.token);
+  //         setCredentials(initialState);
+  //         navigate("/friendList");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   };
 
-  const handleChanges = (e) => {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const login = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    console.log(credentials);
-    axios
-      .post("http://localhost:9000/api/login", credentials)
-      .then((res) => {
-        console.log(res);
-        localStorage.setItem("token", res.data.payload);
-        setCredentials(initialState);
-        navigate("/friendList");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const credentials = {
+      username: props.username,
+      password: props.password,
+    };
+    props.login(credentials);
   };
 
   return (
@@ -44,21 +46,34 @@ export default function Login() {
           <input
             name="username"
             type="text"
-            onChange={(e) => handleChanges(e)}
-            value={credentials.username}
+            onChange={(e) => props.handleChange(e)}
+            value={props.username}
           />
           <label htmlFor="password">Password</label>
           <input
             name="password"
             type="password"
-            onChange={(e) => handleChanges(e)}
-            value={credentials.password}
+            onChange={(e) => props.handleChange(e)}
+            value={props.password}
           />
-          <button type="submit" onClick={(e) => login(e)}>
+          <button type="submit" onClick={(e) => handleLogin(e)}>
             Login
           </button>
         </div>
       </form>
+      {props.error && <p className="error">{props.error.message}</p>}
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    username: state.loginReducer.username,
+    password: state.loginReducer.password,
+    isLoading: state.loginReducer.isLoading,
+    success: state.loginReducer.success,
+    error: state.loginReducer.error,
+  };
+};
+
+export default connect(mapStateToProps, { handleChange, login })(Login);
